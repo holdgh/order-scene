@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.mapper.OrderMapper">
+
+    <insert id="insertOrder">
+        insert into t_order(order_id,user_id,consignee,phone,status,create_time,update_time)
+        values(#{orderId},#{userId},#{consignee},#{phone},#{status},now(),now())
+    </insert>
+
+    <select id="selectByOrderId" resultType="com.logistics.entity.Order">
+        select * from t_order where order_id=#{orderId}
+    </select>
+
+    <insert id="insertTrack">
+        insert into t_order_track(order_id,node,address,create_time)
+        values(#{orderId},#{node},#{address},now())
+    </insert>
+
+    <insert id="insertIdempotent">
+        insert ignore into t_idempotent(business_id,create_time) values(#{businessId},now())
+    </insert>
+
+    <select id="selectIdempotent" resultType="com.logistics.entity.Idempotent">
+        select * from t_idempotent where business_id=#{businessId}
+    </select>
+</mapper>
