@@ -11,7 +11,7 @@ public class KafkaProducer {
     @Resource
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendTrack(String orderId, String node) {
-        kafkaTemplate.send("track-topic", orderId, orderId + "|" + node);
+    public void sendTrack(String orderId, Integer node, String address) {
+        kafkaTemplate.send("track-topic", orderId, orderId + "|" + node + "|" + address);
     }
 }

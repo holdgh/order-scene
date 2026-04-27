@@ -8,7 +8,8 @@ import java.util.Date;
 public class OrderTrack {
     private Long id;
     private String orderId;
-    private String node;
+    // 0待取件 1运输中 2派送中 3签收
+    private Integer node;
     private String address;
     private Date createTime;
 }

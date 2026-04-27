@@ -1,6 +1,7 @@
 package com.logistics.controller;
 
 import com.logistics.entity.Order;
+import com.logistics.entity.OrderTrack;
 import com.logistics.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,8 @@ public class OrderController {
     }
 
     @PostMapping("/track")
-    public String track(String orderId, String node) {
-        orderService.addTrack(orderId, node);
+    public String track(@RequestBody OrderTrack track) {
+        orderService.addTrack(track);
         return "轨迹已上报";
     }
 }

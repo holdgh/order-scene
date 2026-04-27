@@ -1,4 +1,7 @@
 spring:
+  lifecycle:
+    # 先关闭Redisson连接，再关闭Tomcat，最后退出进程
+    timeout-per-shutdown-phase: 10s  # 加上这个！给 Spring 10 秒优雅关闭时间
   datasource:
     url: jdbc:mysql://localhost:3306/logistics?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
@@ -21,6 +24,13 @@ spring:
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 关闭自动提交，绝对核心【在幂等消费异常时，可以重复触发消费者监听器对该消息的消费逻辑】
+      enable-auto-commit: false
+      # 单次拉取数量，避免批量消息导致锁争抢混乱
+      max-poll-records: 1
+    listener:
+      # 手动提交模式
+      ack-mode: MANUAL
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -33,5 +43,6 @@ logging:
     root: info
     com.logistics: debug
 
-server:
-  port: 8999
+#server:
+# 在idea中有服务配置界面的VM选项参数-Dserver.port=8998指定，也可以由该界面的program参数--server.port=8998指定
+#  port: 8999

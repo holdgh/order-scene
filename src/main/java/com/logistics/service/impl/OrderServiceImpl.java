@@ -3,6 +3,7 @@ package com.logistics.service.impl;
 import cn.hutool.json.JSONUtil;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.logistics.entity.Order;
+import com.logistics.entity.OrderTrack;
 import com.logistics.mapper.OrderMapper;
 import com.logistics.mq.producer.KafkaProducer;
 import com.logistics.service.OrderService;
@@ -67,8 +68,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addTrack(String orderId, String node) {
-        kafkaProducer.sendTrack(orderId, node);
+    public void addTrack(OrderTrack track) {
+        kafkaProducer.sendTrack(track.getOrderId(), track.getNode(), track.getAddress());
     }
 
     private void deleteCache(String orderId) {
