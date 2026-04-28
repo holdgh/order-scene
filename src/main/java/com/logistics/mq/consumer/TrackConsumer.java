@@ -1,15 +1,21 @@
 package com.logistics.mq.consumer;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.logistics.entity.Order;
 import com.logistics.entity.OrderTrack;
 import com.logistics.mapper.OrderMapper;
 import com.logistics.util.IdempotentUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 // 有序幂等消费
@@ -22,9 +28,12 @@ public class TrackConsumer {
     @Resource
     private RedissonClient redissonClient;
 
+    @Autowired
+    private TrackConsumer self;
+
     /*标准的分布式幂等架构：预校验 → 加锁 → 二次校验 → 执行业务 → 标记完成*/
     @KafkaListener(topics = "track-topic", groupId = "track-group")
-    public void consume(ConsumerRecord<String, String> record) {
+    public void consume(ConsumerRecord<String, String> record, Acknowledgment ack) {
         String msg = record.value();
         // 1. 解析消息（增加健壮性判断）
         String[] arr = msg.split("\\|");
@@ -43,7 +52,8 @@ public class TrackConsumer {
         // 唯一标识库去重校验【预校验：快速失败，过滤99%重复消息】
         if (idempotentUtil.isProcessed(businessId)) {
             System.out.println("重复消费，忽略 orderId=" + orderId);
-            // TODO 待手动提交ack消息
+            // 手动提交ack消息
+            ack.acknowledge();
             return;
         }
         // 获取分布式锁【并发场景的请求同步，也即并发去重：仅有一个请求获取锁，其他请求排队等待】
@@ -133,17 +143,10 @@ public class TrackConsumer {
         try {
             // 二次唯一标识去重校验【通过第一次校验的并发请求，在这些请求获取锁后，再次执行唯一标识去重校验】
             if (idempotentUtil.isProcessed(businessId)) return;
-            // 持久化轨迹数据
-            OrderTrack track = new OrderTrack();
-            track.setOrderId(orderId);
-            track.setNode(node);
-            track.setAddress(address);
-            orderMapper.insertTrack(track);
-            // TODO 同步更新订单状态
-            idempotentUtil.markProcessed(businessId);
-
+            self.dealData(orderId, node, address, businessId); // 放在同一事务中处理数据的增删改操作
             System.out.println("轨迹消费成功 orderId=" + orderId + " node=" + node);
-            // TODO 待手动提交ack消息
+            // 手动提交ack消息
+            ack.acknowledge();
         } finally { //  只要服务进程没有死、没有宕机、没有被 kill、没有崩溃
             /*finally 绝对不执行的 2 种核心场景（必记）
                 JVM 进程直接终止（最常见、最需要防范）：
@@ -155,8 +158,28 @@ public class TrackConsumer {
                 调用线程的 stop () 方法（Java 已废弃，会强制终止线程，不执行任何收尾逻辑）：
                     生产环境不会用到，可忽略，但需知晓。
             */
-            // TODO 待检查当前线程是否持有当前锁
-            lock.unlock();
+            // 检查当前线程是否持有当前锁
+            // 仅当前持有锁的线程可释放，避免误释放其他线程锁
+            if (lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+        }
+    }
+
+    @Transactional
+    public void dealData(String orderId, Integer node, String address, String businessId) {
+        // 持久化轨迹数据
+        OrderTrack track = new OrderTrack();
+        track.setOrderId(orderId);
+        track.setNode(node);
+        track.setAddress(address);
+        orderMapper.insertTrack(track);
+        idempotentUtil.markProcessed(businessId);
+        // 同步更新订单状态
+        Order order = orderMapper.selectByOrderId(orderId);
+        if (order != null && !Objects.equals(order.getStatus(), node)) {
+            UpdateWrapper<Order> orderUpdateWrapper = new UpdateWrapper<Order>().set("status", node).eq("order_id", orderId);
+            orderMapper.update(null, orderUpdateWrapper);
         }
     }
 }
