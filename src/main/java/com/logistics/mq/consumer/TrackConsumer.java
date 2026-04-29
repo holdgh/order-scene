@@ -39,6 +39,7 @@ public class TrackConsumer {
         String[] arr = msg.split("\\|");
         if (arr.length < 3) {
             System.out.println("消息格式错误：" + msg);
+            ack.acknowledge();
             return;
         }
         String orderId = arr[0];
@@ -147,6 +148,17 @@ public class TrackConsumer {
             System.out.println("轨迹消费成功 orderId=" + orderId + " node=" + node);
             // 手动提交ack消息
             ack.acknowledge();
+        } catch (Throwable e) {
+            // 【关键】所有异常全部捕获，绝对不抛出去！
+            System.out.println("消费失败，不提交，开始自动重试..." + e);
+
+            // 手动延迟 3 秒再重试（避免疯狂轰炸）
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ignored) {}
+
+            // 不 ack → 下一次 poll 自动重新消费
+            // 因为没有抛异常 → 分区不会暂停！！！
         } finally { //  只要服务进程没有死、没有宕机、没有被 kill、没有崩溃
             /*finally 绝对不执行的 2 种核心场景（必记）
                 JVM 进程直接终止（最常见、最需要防范）：

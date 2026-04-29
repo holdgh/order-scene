@@ -31,6 +31,9 @@ spring:
     listener:
       # 手动提交模式
       ack-mode: MANUAL
+      retry:
+        enabled: true  # 开启重试
+      poll-timeout: 1000  # 重试间隔
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
