@@ -1,6 +1,7 @@
 package com.logistics.service.impl;
 
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.logistics.entity.Order;
 import com.logistics.entity.OrderTrack;
@@ -45,25 +46,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrder(String orderId) {
-        // 1.本地缓存
-        Order order = (Order) caffeineCache.getIfPresent(ORDER_KEY + orderId);
-        if (order != null) return order;
-
-        // 2.Redis
-        String json = stringRedisTemplate.opsForValue().get(ORDER_KEY + orderId);
-        if (json != null) {
-            order = JSONUtil.toBean(json, Order.class);
-            caffeineCache.put(ORDER_KEY + orderId, order);
-            return order;
-        }
-
-        // 3.DB
-        order = orderMapper.selectByOrderId(orderId);
-        if (order != null) {
-            stringRedisTemplate.opsForValue().set(ORDER_KEY + orderId, JSONUtil.toJsonStr(order),
-                    10, TimeUnit.MINUTES);
-            caffeineCache.put(ORDER_KEY + orderId, order);
-        }
+        // // 1.本地缓存
+        // Order order = (Order) caffeineCache.getIfPresent(ORDER_KEY + orderId);
+        // if (order != null) return order;
+        //
+        // // 2.Redis
+        // String json = stringRedisTemplate.opsForValue().get(ORDER_KEY + orderId);
+        // if (json != null) {
+        //     order = JSONUtil.toBean(json, Order.class);
+        //     caffeineCache.put(ORDER_KEY + orderId, order);
+        //     return order;
+        // }
+        //
+        // // 3.DB
+        // order = orderMapper.selectByOrderId(orderId);
+        // if (order != null) {
+        //     stringRedisTemplate.opsForValue().set(ORDER_KEY + orderId, JSONUtil.toJsonStr(order),
+        //             10, TimeUnit.MINUTES);
+        //     caffeineCache.put(ORDER_KEY + orderId, order);
+        // }
+        QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<Order>().eq("order_id", orderId);
+        Order order = orderMapper.selectOne(orderQueryWrapper);
         return order;
     }
 

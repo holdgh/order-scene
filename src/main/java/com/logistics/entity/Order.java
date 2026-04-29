@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "order")
+@TableName(value = "t_order")
 public class Order {
 
 //    @TableId(value = "order_id", type = IdType.INPUT) // 显式绑定 order_id

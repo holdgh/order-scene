@@ -3,8 +3,10 @@ package com.logistics.mq.consumer;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.logistics.entity.Order;
 import com.logistics.entity.OrderTrack;
+import com.logistics.exception.BusinessException;
 import com.logistics.mapper.OrderMapper;
 import com.logistics.util.IdempotentUtil;
+import com.logistics.util.LogUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -38,7 +40,7 @@ public class TrackConsumer {
         // 1. 解析消息（增加健壮性判断）
         String[] arr = msg.split("\\|");
         if (arr.length < 3) {
-            System.out.println("消息格式错误：" + msg);
+            LogUtil.logger.info("消息格式错误：{}", msg);
             ack.acknowledge();
             return;
         }
@@ -52,7 +54,7 @@ public class TrackConsumer {
         String businessId = "track:" + orderId + ":" + node;
         // 唯一标识库去重校验【预校验：快速失败，过滤99%重复消息】
         if (idempotentUtil.isProcessed(businessId)) {
-            System.out.println("重复消费，忽略 orderId=" + orderId);
+            LogUtil.logger.info("重复消费，忽略 orderId：{}", orderId);
             // 手动提交ack消息
             ack.acknowledge();
             return;
@@ -132,33 +134,27 @@ public class TrackConsumer {
             // 关闭看门狗【防止因线程卡死导致的锁无限续期问题，类似死锁】，最大等待时间10秒【放置消费线程无限等待获取锁】，锁有效期固定15秒【基于消费逻辑常规执行耗时设置，锁的最大持有时间】
             lockSuccess = lock.tryLock(10, 15, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            System.out.println("加锁被中断，orderId=" + orderId);
+            LogUtil.logger.info("加锁被中断，orderId：{}", orderId);
             Thread.currentThread().interrupt();
             return;
         }
 
         if (!lockSuccess) {
-            System.out.println("获取锁失败，稍后重试：orderId=" + orderId);
+            LogUtil.logger.info("获取锁失败，稍后重试：orderId：{}", orderId);
             return;
         }
         try {
             // 二次唯一标识去重校验【通过第一次校验的并发请求，在这些请求获取锁后，再次执行唯一标识去重校验】
             if (idempotentUtil.isProcessed(businessId)) return;
             self.dealData(orderId, node, address, businessId); // 放在同一事务中处理数据的增删改操作
-            System.out.println("轨迹消费成功 orderId=" + orderId + " node=" + node);
+            LogUtil.logger.info("轨迹消费成功 orderId：{}，node：{}", orderId, node);
             // 手动提交ack消息
             ack.acknowledge();
-        } catch (Throwable e) {
-            // 【关键】所有异常全部捕获，绝对不抛出去！
-            System.out.println("消费失败，不提交，开始自动重试..." + e);
-
-            // 手动延迟 3 秒再重试（避免疯狂轰炸）
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignored) {}
-
-            // 不 ack → 下一次 poll 自动重新消费
-            // 因为没有抛异常 → 分区不会暂停！！！
+        // } catch (Throwable e) {
+        //     LogUtil.logger.info("消费失败，不提交，开始自动重试...异常信息：", e);
+        //     // try {
+        //     //     Thread.sleep(3000);
+        //     // } catch (InterruptedException ignored) {}
         } finally { //  只要服务进程没有死、没有宕机、没有被 kill、没有崩溃
             /*finally 绝对不执行的 2 种核心场景（必记）
                 JVM 进程直接终止（最常见、最需要防范）：
@@ -187,6 +183,9 @@ public class TrackConsumer {
         track.setAddress(address);
         orderMapper.insertTrack(track);
         idempotentUtil.markProcessed(businessId);
+        if (false) {
+            throw new BusinessException("模拟消费问题，抛出异常");
+        }
         // 同步更新订单状态
         Order order = orderMapper.selectByOrderId(orderId);
         if (order != null && !Objects.equals(order.getStatus(), node)) {

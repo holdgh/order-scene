@@ -1,6 +1,7 @@
 package com.logistics.cache;
 
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.logistics.util.LogUtil;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class CacheSyncListener implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         String orderId = new String(message.getBody());
-        System.out.println("收到缓存同步消息，清除本地缓存 orderId=" + orderId);
+        LogUtil.logger.info("收到缓存同步消息，清除本地缓存 orderId：{}", orderId);
         caffeineCache.invalidate("order:" + orderId);
     }
 }
