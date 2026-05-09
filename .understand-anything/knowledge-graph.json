@@ -1,0 +1,784 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "order-scene",
+    "description": "电商运单场景-高并发、高可用、微服务、分布式、消息队列",
+    "languages": [
+      "batch",
+      "java",
+      "javascript",
+      "markdown",
+      "xml",
+      "yaml"
+    ],
+    "frameworks": [
+      "Spring Boot",
+      "MyBatis",
+      "Kafka",
+      "Redis",
+      "Redisson"
+    ],
+    "analyzedAt": "2026-05-09T06:06:40.320Z",
+    "gitCommitHash": "cf5cb2ca546c071d633b670778bd35d4bab57a4a"
+  },
+  "nodes": [
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": ".understandignore - source file",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple",
+      "language": "unknown"
+    },
+    {
+      "id": "file:.understand-anything/tmp/ua-project-scan.js",
+      "type": "file",
+      "name": "ua-project-scan",
+      "filePath": ".understand-anything/tmp/ua-project-scan.js",
+      "summary": "ua-project-scan - source file",
+      "tags": [
+        "code"
+      ],
+      "complexity": "moderate",
+      "language": "javascript"
+    },
+    {
+      "id": "file:create_kafka_topic.bat",
+      "type": "file",
+      "name": "create_kafka_topic",
+      "filePath": "create_kafka_topic.bat",
+      "summary": "create_kafka_topic - source file",
+      "tags": [
+        "script"
+      ],
+      "complexity": "simple",
+      "language": "batch"
+    },
+    {
+      "id": "document:kafka主题不要自动创建.md",
+      "type": "document",
+      "name": "kafka主题不要自动创建",
+      "filePath": "kafka主题不要自动创建.md",
+      "summary": "Project documentation: kafka主题不要自动创建",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    },
+    {
+      "id": "document:Kafka幂等消费极端情况及处理办法.md",
+      "type": "document",
+      "name": "Kafka幂等消费极端情况及处理办法",
+      "filePath": "Kafka幂等消费极端情况及处理办法.md",
+      "summary": "Project documentation: Kafka幂等消费极端情况及处理办法",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    },
+    {
+      "id": "document:Kafka消费幂等架构落地极简文档.md",
+      "type": "document",
+      "name": "Kafka消费幂等架构落地极简文档",
+      "filePath": "Kafka消费幂等架构落地极简文档.md",
+      "summary": "Project documentation: Kafka消费幂等架构落地极简文档",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    },
+    {
+      "id": "document:kafka消费逻辑中涉及多步保存或更新数据操作时必须加事务.md",
+      "type": "document",
+      "name": "kafka消费逻辑中涉及多步保存或更新数据操作时必须加事务",
+      "filePath": "kafka消费逻辑中涉及多步保存或更新数据操作时必须加事务.md",
+      "summary": "Project documentation: kafka消费逻辑中涉及多步保存或更新数据操作时必须加事务",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    },
+    {
+      "id": "document:maven依赖版本问题标准处理办法.md",
+      "type": "document",
+      "name": "maven依赖版本问题标准处理办法",
+      "filePath": "maven依赖版本问题标准处理办法.md",
+      "summary": "Project documentation: maven依赖版本问题标准处理办法",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    },
+    {
+      "id": "config:pom.xml",
+      "type": "config",
+      "name": "pom",
+      "filePath": "pom.xml",
+      "summary": "Maven build configuration",
+      "tags": [
+        "config"
+      ],
+      "complexity": "complex",
+      "language": "xml"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README",
+      "filePath": "README.md",
+      "summary": "Project overview and documentation",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "simple",
+      "language": "markdown"
+    },
+    {
+      "id": "document:redisson锁的4种加锁方式及应用场景.md",
+      "type": "document",
+      "name": "redisson锁的4种加锁方式及应用场景",
+      "filePath": "redisson锁的4种加锁方式及应用场景.md",
+      "summary": "Project documentation: redisson锁的4种加锁方式及应用场景",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/cache/CacheSyncListener.java",
+      "type": "file",
+      "name": "CacheSyncListener",
+      "filePath": "src/main/java/com/logistics/cache/CacheSyncListener.java",
+      "summary": "Redis pub/sub listener for cache synchronization",
+      "tags": [
+        "listener",
+        "cache"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/cache/LocalCache.java",
+      "type": "file",
+      "name": "LocalCache",
+      "filePath": "src/main/java/com/logistics/cache/LocalCache.java",
+      "summary": "LocalCache - source file",
+      "tags": [
+        "cache",
+        "local"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/config/CaffeineConfig.java",
+      "type": "file",
+      "name": "CaffeineConfig",
+      "filePath": "src/main/java/com/logistics/config/CaffeineConfig.java",
+      "summary": "Caffeine configuration bean for Spring Boot",
+      "tags": [
+        "configuration",
+        "cache"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/config/KafkaConsumerConfig.java",
+      "type": "file",
+      "name": "KafkaConsumerConfig",
+      "filePath": "src/main/java/com/logistics/config/KafkaConsumerConfig.java",
+      "summary": "KafkaConsumer configuration bean for Spring Boot",
+      "tags": [
+        "configuration",
+        "kafka"
+      ],
+      "complexity": "moderate",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/config/KafkaProducerConfig.java",
+      "type": "file",
+      "name": "KafkaProducerConfig",
+      "filePath": "src/main/java/com/logistics/config/KafkaProducerConfig.java",
+      "summary": "KafkaProducer configuration bean for Spring Boot",
+      "tags": [
+        "configuration",
+        "kafka"
+      ],
+      "complexity": "moderate",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/config/MyBatisConfig.java",
+      "type": "file",
+      "name": "MyBatisConfig",
+      "filePath": "src/main/java/com/logistics/config/MyBatisConfig.java",
+      "summary": "MyBatis configuration bean for Spring Boot",
+      "tags": [
+        "configuration",
+        "mybatis"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/config/RedisConfig.java",
+      "type": "file",
+      "name": "RedisConfig",
+      "filePath": "src/main/java/com/logistics/config/RedisConfig.java",
+      "summary": "Redis configuration bean for Spring Boot",
+      "tags": [
+        "configuration",
+        "redis"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/config/RedissonConfig.java",
+      "type": "file",
+      "name": "RedissonConfig",
+      "filePath": "src/main/java/com/logistics/config/RedissonConfig.java",
+      "summary": "Redisson configuration bean for Spring Boot",
+      "tags": [
+        "configuration",
+        "redis"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/controller/OrderController.java",
+      "type": "file",
+      "name": "OrderController",
+      "filePath": "src/main/java/com/logistics/controller/OrderController.java",
+      "summary": "REST API controller handling order operations",
+      "tags": [
+        "api-handler",
+        "rest"
+      ],
+      "complexity": "moderate",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/entity/Idempotent.java",
+      "type": "file",
+      "name": "Idempotent",
+      "filePath": "src/main/java/com/logistics/entity/Idempotent.java",
+      "summary": "Idempotency entity for duplicate prevention",
+      "tags": [
+        "entity",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/entity/Order.java",
+      "type": "file",
+      "name": "Order",
+      "filePath": "src/main/java/com/logistics/entity/Order.java",
+      "summary": "Order - source file",
+      "tags": [
+        "entity",
+        "data-model"
+      ],
+      "complexity": "moderate",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/entity/OrderTrack.java",
+      "type": "file",
+      "name": "OrderTrack",
+      "filePath": "src/main/java/com/logistics/entity/OrderTrack.java",
+      "summary": "Order tracking entity for logisitics",
+      "tags": [
+        "entity",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/exception/BusinessException.java",
+      "type": "file",
+      "name": "BusinessException",
+      "filePath": "src/main/java/com/logistics/exception/BusinessException.java",
+      "summary": "Custom business exception for order operations",
+      "tags": [
+        "exception",
+        "error-handling"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/LogisticsApplication.java",
+      "type": "file",
+      "name": "LogisticsApplication",
+      "filePath": "src/main/java/com/logistics/LogisticsApplication.java",
+      "summary": "LogisticsApplication - source file",
+      "tags": [
+        "entry-point",
+        "spring-boot"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/mapper/OrderMapper.java",
+      "type": "file",
+      "name": "OrderMapper",
+      "filePath": "src/main/java/com/logistics/mapper/OrderMapper.java",
+      "summary": "MyBatis mapper interface for Order operations",
+      "tags": [
+        "mapper",
+        "data-access"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/mq/consumer/TrackConsumer.java",
+      "type": "file",
+      "name": "TrackConsumer",
+      "filePath": "src/main/java/com/logistics/mq/consumer/TrackConsumer.java",
+      "summary": "Kafka consumer for processing order track messages",
+      "tags": [
+        "consumer",
+        "kafka",
+        "mq"
+      ],
+      "complexity": "complex",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+      "type": "file",
+      "name": "KafkaProducer",
+      "filePath": "src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+      "summary": "Kafka producer for sending order messages",
+      "tags": [
+        "producer",
+        "kafka",
+        "mq"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "type": "file",
+      "name": "OrderServiceImpl",
+      "filePath": "src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "summary": "OrderServiceImpl - source file",
+      "tags": [
+        "service-implementation",
+        "business"
+      ],
+      "complexity": "moderate",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/service/OrderService.java",
+      "type": "file",
+      "name": "OrderService",
+      "filePath": "src/main/java/com/logistics/service/OrderService.java",
+      "summary": "Order service interface defining business operations",
+      "tags": [
+        "service-interface",
+        "business"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/util/IdempotentUtil.java",
+      "type": "file",
+      "name": "IdempotentUtil",
+      "filePath": "src/main/java/com/logistics/util/IdempotentUtil.java",
+      "summary": "Utility class for idempotent operations",
+      "tags": [
+        "utility",
+        "idempotent"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/util/LogUtil.java",
+      "type": "file",
+      "name": "LogUtil",
+      "filePath": "src/main/java/com/logistics/util/LogUtil.java",
+      "summary": "Utility class for log operations",
+      "tags": [
+        "utility",
+        "logging"
+      ],
+      "complexity": "simple",
+      "language": "java"
+    },
+    {
+      "id": "file:src/main/java/com/logistics/util/RedisPubSubUtil.java",
+      "type": "file",
+      "name": "RedisPubSubUtil",
+      "filePath": "src/main/java/com/logistics/util/RedisPubSubUtil.java",
+      "summary": "Utility class for redispubsub operations",
+      "tags": [
+        "utility",
+        "redis",
+        "pub-sub"
+      ],
+      "complexity": "moderate",
+      "language": "java"
+    },
+    {
+      "id": "config:src/main/resources/application.yml",
+      "type": "config",
+      "name": "application",
+      "filePath": "src/main/resources/application.yml",
+      "summary": "application - source file",
+      "tags": [
+        "config"
+      ],
+      "complexity": "moderate",
+      "language": "yaml"
+    },
+    {
+      "id": "config:src/main/resources/mapper/OrderMapper.xml",
+      "type": "config",
+      "name": "OrderMapper",
+      "filePath": "src/main/resources/mapper/OrderMapper.xml",
+      "summary": "OrderMapper - source file",
+      "tags": [
+        "mapper",
+        "data-access"
+      ],
+      "complexity": "simple",
+      "language": "xml"
+    },
+    {
+      "id": "document:京东面试官的自豪感来源.md",
+      "type": "document",
+      "name": "京东面试官的自豪感来源",
+      "filePath": "京东面试官的自豪感来源.md",
+      "summary": "Project documentation: 京东面试官的自豪感来源",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "moderate",
+      "language": "markdown"
+    },
+    {
+      "id": "document:多级缓存的优势与问题.md",
+      "type": "document",
+      "name": "多级缓存的优势与问题",
+      "filePath": "多级缓存的优势与问题.md",
+      "summary": "Project documentation: 多级缓存的优势与问题",
+      "tags": [
+        "docs"
+      ],
+      "complexity": "complex",
+      "language": "markdown"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/main/java/com/logistics/controller/OrderController.java",
+      "target": "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "type": "calls",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "target": "file:src/main/java/com/logistics/service/OrderService.java",
+      "type": "implements",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "target": "file:src/main/java/com/logistics/mapper/OrderMapper.java",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "target": "file:src/main/java/com/logistics/util/IdempotentUtil.java",
+      "type": "calls",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java",
+      "target": "file:src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+      "type": "calls",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/service/OrderService.java",
+      "target": "file:src/main/java/com/logistics/entity/Order.java",
+      "type": "references",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/mq/consumer/TrackConsumer.java",
+      "target": "file:src/main/java/com/logistics/entity/OrderTrack.java",
+      "type": "creates",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main/java/com/logistics/mq/consumer/TrackConsumer.java",
+      "target": "file:src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+      "type": "imports",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/mapper/OrderMapper.java",
+      "target": "config:src/main/resources/mapper/OrderMapper.xml",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+      "target": "file:src/main/java/com/logistics/config/KafkaProducerConfig.java",
+      "type": "depends_on",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/java/com/logistics/config/KafkaConsumerConfig.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/config/KafkaProducerConfig.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/config/RedisConfig.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/config/RedissonConfig.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/config/CaffeineConfig.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/config/MyBatisConfig.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/java/com/logistics/util/RedisPubSubUtil.java",
+      "target": "config:src/main/resources/application.yml",
+      "type": "configures",
+      "weight": 0.5
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:entry-point",
+      "name": "Entry Point",
+      "description": "Spring Boot application main class",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/LogisticsApplication.java"
+      ]
+    },
+    {
+      "id": "layer:api",
+      "name": "API Layer",
+      "description": "REST controllers",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/controller/OrderController.java"
+      ]
+    },
+    {
+      "id": "layer:business",
+      "name": "Business Layer",
+      "description": "Service layer",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/service/OrderService.java",
+        "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java"
+      ]
+    },
+    {
+      "id": "layer:data-access",
+      "name": "Data Access Layer",
+      "description": "Entity and mappers",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/entity/Order.java",
+        "file:src/main/java/com/logistics/entity/OrderTrack.java",
+        "file:src/main/java/com/logistics/entity/Idempotent.java",
+        "file:src/main/java/com/logistics/mapper/OrderMapper.java",
+        "config:src/main/resources/mapper/OrderMapper.xml"
+      ]
+    },
+    {
+      "id": "layer:messaging",
+      "name": "Messaging Layer",
+      "description": "Kafka",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+        "file:src/main/java/com/logistics/mq/consumer/TrackConsumer.java"
+      ]
+    },
+    {
+      "id": "layer:cache",
+      "name": "Cache Layer",
+      "description": "Caching",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/cache/CacheSyncListener.java",
+        "file:src/main/java/com/logistics/cache/LocalCache.java",
+        "file:src/main/java/com/logistics/config/CaffeineConfig.java",
+        "file:src/main/java/com/logistics/config/RedisConfig.java",
+        "file:src/main/java/com/logistics/config/RedissonConfig.java",
+        "file:src/main/java/com/logistics/util/RedisPubSubUtil.java"
+      ]
+    },
+    {
+      "id": "layer:configuration",
+      "name": "Configuration",
+      "description": "Bean configs",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/config/KafkaConsumerConfig.java",
+        "file:src/main/java/com/logistics/config/KafkaProducerConfig.java",
+        "file:src/main/java/com/logistics/config/MyBatisConfig.java"
+      ]
+    },
+    {
+      "id": "layer:utilities",
+      "name": "Utilities",
+      "description": "Helpers",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/util/IdempotentUtil.java",
+        "file:src/main/java/com/logistics/util/LogUtil.java",
+        "file:src/main/java/com/logistics/exception/BusinessException.java"
+      ]
+    },
+    {
+      "id": "layer:resources",
+      "name": "Resources",
+      "description": "Config files",
+      "nodeIds": [
+        "config:src/main/resources/application.yml",
+        "config:pom.xml",
+        "file:.understand-anything/.understandignore",
+        "file:.understand-anything/tmp/ua-project-scan.js",
+        "file:create_kafka_topic.bat",
+        "document:README.md"
+      ]
+    },
+    {
+      "id": "layer:docs",
+      "name": "Documentation",
+      "description": "Project docs",
+      "nodeIds": [
+        "document:kafka主题不要自动创建.md",
+        "document:Kafka幂等消费极端情况及处理办法.md",
+        "document:Kafka消费幂等架构落地极简文档.md",
+        "document:kafka消费逻辑中涉及多步保存或更新数据操作时必须加事务.md",
+        "document:maven依赖版本问题标准处理办法.md",
+        "document:redisson锁的4种加锁方式及应用场景.md",
+        "document:京东面试官的自豪感来源.md",
+        "document:多级缓存的优势与问题.md"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "E-commerce order logistics scene - high concurrency, high availability, microservices, distributed, message queues",
+      "nodeIds": [
+        "document:README.md",
+        "config:pom.xml"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Application Entry Point",
+      "description": "Spring Boot application bootstrap class that starts the entire application",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/LogisticsApplication.java"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "REST API Layer",
+      "description": "Order REST controller exposing endpoints for order operations",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/controller/OrderController.java"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Business Logic",
+      "description": "Order service with implementation containing core business logic and transaction management",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/service/OrderService.java",
+        "file:src/main/java/com/logistics/service/impl/OrderServiceImpl.java"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Data Persistence",
+      "description": "MyBatis mapper and entity models for database operations",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/entity/Order.java",
+        "file:src/main/java/com/logistics/entity/OrderTrack.java",
+        "file:src/main/java/com/logistics/entity/Idempotent.java",
+        "file:src/main/java/com/logistics/mapper/OrderMapper.java"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Message Queue",
+      "description": "Kafka producer and consumer for async order tracking and processing",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/mq/producer/KafkaProducer.java",
+        "file:src/main/java/com/logistics/mq/consumer/TrackConsumer.java"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Caching Strategy",
+      "description": "Multi-layer caching with Redis, Redisson, and Caffeine for high-performance data access",
+      "nodeIds": [
+        "file:src/main/java/com/logistics/config/RedisConfig.java",
+        "file:src/main/java/com/logistics/config/RedissonConfig.java",
+        "file:src/main/java/com/logistics/config/CaffeineConfig.java",
+        "file:src/main/java/com/logistics/cache/CacheSyncListener.java"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Application Configuration",
+      "description": "Spring Boot configuration files defining beans and application settings",
+      "nodeIds": [
+        "config:src/main/resources/application.yml"
+      ]
+    }
+  ]
+}
